@@ -110,7 +110,7 @@
         [_monthPickerView selectRow:selectedMonth-1 inComponent:1 animated:NO];
         [_monthPickerView selectRow:selectedYear-1900 inComponent:0 animated:NO];
         
-        // 设置默认的最大的时间
+        // 设置默认的最大的时间为2099年1月
         NSString *tempYear = [_yearArray lastObject];
         NSString *tempMonth = [_monthArray lastObject];
         
@@ -258,6 +258,7 @@
         _yearArray = [NSMutableArray arrayWithCapacity:0];
     }
     
+    // 年月选择的时间段，可自行调整
     for (int i = 1900; i < 2100; i++) {
         [_yearArray addObject:[NSString stringWithFormat:@"%i年", i]];
     }

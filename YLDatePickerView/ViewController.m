@@ -49,6 +49,9 @@
     
     date.delegate = self;
     
+    date.currentDate = [self.formatter dateFromString:@"1900-07-09 23:59:59"];
+    date.maximumDate = [NSDate date];
+    
     [self.view addSubview:date];
     
     [date show];
