@@ -37,6 +37,7 @@
         [self setTitle:title cancelButton:cancel otherButton:other];
         
         self.mode = mode;
+
     }
     return self;
 }
@@ -234,6 +235,8 @@
 
 - (void)setMode:(YLDatePickerViewDateMode)mode {
     
+    _mode = mode;
+    
     if (mode == YLDatePickerViewDateModeYearAndMonth) {
        
         self.datePickerView.hidden = YES;
@@ -372,32 +375,33 @@
 #pragma mark - 点击确定回调
 -(void)selectbtn:(UIButton *)button {
     
+    [self hide];
+    
     if (button.tag == 110) {
-        [self hide];
+        return;
+    }
+    
+    NSDate *seletedDate = nil;
+    
+    if (self.mode == YLDatePickerViewDateModeYearAndMonth) {
+        
+        [self.formatter setDateFormat:@"yyyy-MM"];
+        
+        // 2017年 -> 2017
+        NSString *tempYearString = [_yearString substringToIndex:_yearString.length-1];
+        
+        // 1月  -> 1
+        NSString *tempMonthString = [_monthString substringToIndex:_monthString.length-1];
+        
+        NSString *dateString = [NSString stringWithFormat:@"%@-%@", tempYearString, tempMonthString];
+        seletedDate = [self.formatter dateFromString:dateString];
     }
     else {
-        [self hide];
-        
-        if (_datePickerView) {
-            [self.delegate datePickerClickButtonAtIndex:button.tag date:_datePickerView.date];
-            return;
-        }
-        
-        if (_monthPickerView) {
-            
-            [self.formatter setDateFormat:@"yyyy-MM"];
-            
-            // 2017年 -> 2017
-            NSString *tempYearString = [_yearString substringToIndex:_yearString.length-1];
-           
-            // 1月  -> 1
-            NSString *tempMonthString = [_monthString substringToIndex:_monthString.length-1];
-            
-            NSString *dateString = [NSString stringWithFormat:@"%@-%@", tempYearString, tempMonthString];
-            NSDate *date = [self.formatter dateFromString:dateString];
-            [self.delegate datePickerClickButtonAtIndex:button.tag date:date];
-        }
+        seletedDate = self.datePickerView.date;
     }
+
+    [self.delegate datePickerClickButtonAtIndex:button.tag date:seletedDate];
+    self.currentDate = seletedDate;
 }
 
 #pragma mark - 显示\隐藏

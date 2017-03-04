@@ -73,6 +73,8 @@ typedef NS_ENUM(NSInteger, YLDatePickerViewDateMode) {
  */
 @property (nonatomic, assign) id<YLDatePickerViewDelegate>delegate;
 
+@property (nonatomic, assign) BOOL pickerViewScrolling;
+
 
 /*
  *  初始化

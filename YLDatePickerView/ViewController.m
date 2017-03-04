@@ -24,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+
 }
 
 -(NSDateFormatter *)formatter {
@@ -61,6 +62,7 @@
 - (IBAction)showDatePicker:(UIButton *)sender {
     
     NSInteger mode = sender.tag - 110;
+    
     self.datePickerView.mode = mode;
     
     [self.datePickerView show];
