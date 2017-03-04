@@ -427,6 +427,7 @@
 				4920BD1B1E62A480005BA5F8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4920BD1C1E62A480005BA5F8 /* Build configuration list for PBXNativeTarget "YLDatePickerViewUITests" */ = {
 			isa = XCConfigurationList;
@@ -435,6 +436,7 @@
 				4920BD1E1E62A480005BA5F8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

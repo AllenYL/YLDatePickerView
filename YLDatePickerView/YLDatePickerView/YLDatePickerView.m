@@ -36,26 +36,7 @@
         
         [self setTitle:title cancelButton:cancel otherButton:other];
         
-        if (mode == YLDatePickerViewDateModeYearAndMonth) {
-            [self creatPickerView];
-        }
-        else {
-            [self creatDatePickerView];
-            switch (mode) {
-                case 0:
-                    self.datePickerView.datePickerMode = UIDatePickerModeTime;
-                    break;
-                case 1:
-                    self.datePickerView.datePickerMode = UIDatePickerModeDate;
-                    break;
-                case 2:
-                    self.datePickerView.datePickerMode = UIDatePickerModeDateAndTime;
-                    break;
-                default:
-                    self.datePickerView.datePickerMode = UIDatePickerModeCountDownTimer;
-                    break;
-            }
-        }
+        self.mode = mode;
     }
     return self;
 }
@@ -248,6 +229,45 @@
     if (_skinColor) {
         _titleLabel.backgroundColor = _skinColor;
         _okButton.backgroundColor = _skinColor;
+    }
+}
+
+- (void)setMode:(YLDatePickerViewDateMode)mode {
+    
+    if (mode == YLDatePickerViewDateModeYearAndMonth) {
+       
+        self.datePickerView.hidden = YES;
+        
+        if (!self.monthPickerView) {
+            [self creatPickerView];
+        }
+        
+        self.monthPickerView.hidden = NO;
+        return;
+    }
+    
+    
+    self.monthPickerView.hidden = YES;
+
+    if (!self.datePickerView) {
+        [self creatDatePickerView];
+    }
+    
+    self.datePickerView.hidden = NO;
+    
+    switch (mode) {
+        case 0:
+            self.datePickerView.datePickerMode = UIDatePickerModeTime;
+            break;
+        case 1:
+            self.datePickerView.datePickerMode = UIDatePickerModeDate;
+            break;
+        case 2:
+            self.datePickerView.datePickerMode = UIDatePickerModeDateAndTime;
+            break;
+        default:
+            self.datePickerView.datePickerMode = UIDatePickerModeCountDownTimer;
+            break;
     }
 }
 

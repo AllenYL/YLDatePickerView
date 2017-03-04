@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *label;
 @property (nonatomic, strong) NSDateFormatter *formatter;
 
+@property (nonatomic, strong) YLDatePickerView *datePickerView;
+
 @end
 
 @implementation ViewController
@@ -37,38 +39,33 @@
 }
 
 
+-(YLDatePickerView *)datePickerView {
+    
+    if (!_datePickerView) {
+        
+        _datePickerView = [[YLDatePickerView alloc] initWithFrame:CGRectMake(0, 0, 290, 290) mode:0 title:@"日期" cancelButton:nil otherButton:nil];
+        
+        _datePickerView.center = self.view.center;
+        
+        _datePickerView.delegate = self;
+        
+        _datePickerView.currentDate = [self.formatter dateFromString:@"1900-01-01 00:00:00"];
+        _datePickerView.maximumDate = [NSDate date];
+        
+        [self.view addSubview:_datePickerView];
+    }
+    
+    return _datePickerView;
+}
+
 - (IBAction)showDatePicker:(UIButton *)sender {
     
-    [self clear];
-    
     NSInteger mode = sender.tag - 110;
+    self.datePickerView.mode = mode;
     
-    YLDatePickerView *date = [[YLDatePickerView alloc] initWithFrame:CGRectMake(0, 0, 290, 290) mode:mode title:@"日期" cancelButton:nil otherButton:nil];
-    
-    date.center = self.view.center;
-    
-    date.delegate = self;
-    
-    date.currentDate = [self.formatter dateFromString:@"1900-07-09 23:59:59"];
-    date.maximumDate = [NSDate date];
-    
-    [self.view addSubview:date];
-    
-    [date show];
+    [self.datePickerView show];
 }
 
-
--(void)clear {
-    
-    [self.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        if ([obj isKindOfClass:[YLDatePickerView class]]) {
-            [obj removeFromSuperview];
-            obj = nil;
-            *stop = YES;
-        }
-    }];
-}
 
 #pragma mark - YLDatePickerViewDelegate
 -(void)datePickerClickButtonAtIndex:(NSInteger)index date:(NSDate *)chooseDate {
